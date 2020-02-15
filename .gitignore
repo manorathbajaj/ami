@@ -6,3 +6,6 @@ crash.log
 
 # For built boxes
 *.box
+
+vars-dev.json
+vars-prod.json
