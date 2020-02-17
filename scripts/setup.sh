@@ -46,36 +46,31 @@ echo"before touch"
 ## Writing a tomcat service to make it start on boot
 echo "affter touch"
 echo "[Unit]
-    Description=Apache Tomcat Web Application Container
-    After=syslog.target network.target
-    [Service]
-    Type=forking
-    Environment=JAVA_HOME=/usr/lib/jvm/jre
-    Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
-    Environment=CATALINA_HOME=/opt/tomcat
-    Environment=CATALINA_BASE=/opt/tomcat
-    Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
-    Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
-    WorkingDirectory=/opt/tomcat
-    ExecStart=/opt/tomcat/bin/startup.sh
-    ExecStop=/bin/kill -15 $MAINPID
-    User=tomcat
-    Group=tomcat
-    UMask=0007
-    RestartSec=10
-    Restart=always
-    [Install]
-    WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
+Description=Apache Tomcat Web Application Container
+After=network.target
+[Service]
+Type=oneshot
+Environment=JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+WorkingDirectory=/opt/tomcat
+ExecStart=/opt/tomcat/bin/startup.sh
+RemainAfterExit=true
+ExecStop=/opt/tomcat/bin/shutdown.sh
+User=tomcat
+Group=tomcat
+UMask=0007
+[Install]
+WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 echo "after file write"
-# make webapp and work available to all and delete prepolutated examples
-#cd /opt/tomcat/
-# sudo chmod -R 777 webapps
-# sudo chmod -R 777 work
-# sudo rm -rf /opt/tomcat/webapps/*
-# sudo rm -rf /opt/tomcat/work/*
-# echo"after chmod tp webapp folder"
+
 #Reload  and run tomcat service
+
 sudo systemctl daemon-reload
+sudo systemctl unmask tomcat.service
 sudo systemctl enable tomcat.service
 sudo systemctl start tomcat.service
 
