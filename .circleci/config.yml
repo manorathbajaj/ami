@@ -20,20 +20,20 @@ jobs:
             chmod +x packer
       - run:
           name: Validate Packer Template
-          command: ./packer validate ami.json \
-            -var "aws_region=${AWS_REGION}" \
-            -var "subnet_id=${AWS_SUBNET_ID}" \
-            -var "source_ami=${SOURCE_AMI}" \
+          command: ./packer validate \
+            -var "aws_region=${AWS_REGION}"\
+            -var "subnet_id=${AWS_SUBNET_ID}"\
+            -var "source_ami=${SOURCE_AMI}"\
             -var "aws_access_key=${AWS_ACCES_KEY}"\
             -var "aws_secret_key=${AWS_SECRET_KEY}"\
             ami.json
       - run:
           name: Build AMI
           command: |
-            ./packer build \
-            -var "aws_region=${AWS_REGION}" \
-            -var "subnet_id=${AWS_SUBNET_ID}" \
-            -var "source_ami=${SOURCE_AMI}" \
+            ./packer build\
+            -var "aws_region=${AWS_REGION}"\
+            -var "subnet_id=${AWS_SUBNET_ID}"\
+            -var "source_ami=${SOURCE_AMI}"\
             -var "aws_access_key=${AWS_ACCES_KEY}"\
             -var "aws_secret_key=${AWS_SECRET_KEY}"\
             ami.json
