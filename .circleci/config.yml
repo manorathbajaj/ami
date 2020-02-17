@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Validate Packer Template
           command: |
-            ./packer validate ami.json -var 'source_ami=${SOURCE_AMI}'
+            ./packer validate -var 'source_ami=${SOURCE_AMI}' ami.json 
       - run:
           name: Build AMI
           command: |
