@@ -17,7 +17,7 @@
             "subnet_id": "{{user `subnet_id`}}",
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "{{user `ssh_username`}}",
-            "ami_name": "csye6225_{{timestamp}}",
+            "ami_name": "csye6225_ami_bajaj.m",
             "ami_description": "Ubuntu AMI for CSYE 6225 - Spring 2020",
             "launch_block_device_mappings": [
                 {
@@ -32,13 +32,7 @@
     "provisioners": [
         {
             "type": "shell",
-            "environment_vars": [
-                "FOO=foo"
-            ],
-            "inline": [
-                "sudo apt-get update",
-                "sudo apt-get install apache2 -y"
-            ]
+            "script":"scripts/setup.sh"
         }
     ]
 }
