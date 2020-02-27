@@ -74,6 +74,3 @@ sudo systemctl unmask tomcat.service
 sudo systemctl enable tomcat.service
 sudo systemctl start tomcat.service
 
-
-#install gradle
-sudo apt-get install gradle -y
