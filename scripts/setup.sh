@@ -70,7 +70,7 @@ WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 echo "after file write"
 
 #Installing codedeploy
-sudo apt-get install ruby
+sudo apt-get install ruby -y
 sudo apt-get install wget
 cd /home/ubuntu
 wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
