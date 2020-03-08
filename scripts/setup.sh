@@ -35,6 +35,8 @@ sudo chgrp -R tomcat conf
 sudo chmod g+rwx conf
 sudo chmod -R g+r conf
 sudo chown -R tomcat logs/ temp/ webapps/ work/
+sudo rm -rf /opt/tomcat/webapps/*
+sudo rm -rf /opt/tomcat/work/*
 
 #same for bin,lib and bin
 sudo chgrp -R tomcat bin
@@ -67,6 +69,15 @@ UMask=0007
 WantedBy=multi-user.target" | sudo tee -a /etc/systemd/system/tomcat.service
 echo "after file write"
 
+#Installing codedeploy
+sudo apt-get install ruby
+sudo apt-get install wget
+cd /home/ubuntu
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+
+sudo service codedeploy-agent start
 #Reload  and run tomcat service
 
 sudo systemctl daemon-reload
