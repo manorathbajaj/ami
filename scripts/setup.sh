@@ -85,3 +85,17 @@ sudo systemctl unmask tomcat.service
 sudo systemctl enable tomcat.service
 sudo systemctl start tomcat.service
 
+# Installing cloud-watch  
+cat cloudwatch-config.json
+    
+
+    cd ~
+
+    sudo wget https://s3.us-east-1.amazonaws.com/amazoncloudwatch-agent-us-east-1/centos/amd64/latest/amazon-cloudwatch-agent.rpm
+    sudo rpm -U ./amazon-cloudwatch-agent.rpm
+    
+    cd ~
+
+    sudo wget https://s3.amazonaws.com/configfileforcloudwatch/amazon-cloudwatch-agent.service
+    sudo cp amazon-cloudwatch-agent.service /etc/systemd/system/
+    sudo systemctl enable amazon-cloudwatch-agent.service
