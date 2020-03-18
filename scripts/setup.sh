@@ -89,13 +89,20 @@ sudo systemctl start tomcat.service
 cat cloudwatch-config.json
     
 
-    cd ~
+echo 'Downloading cloud watch'
+wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
 
-    sudo wget https://s3.us-east-1.amazonaws.com/amazoncloudwatch-agent-us-east-1/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
-    sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
-    
-    cd ~
 
-    sudo wget https://s3.amazonaws.com/configfileforcloudwatch/amazon-cloudwatch-agent.service
-    sudo cp amazon-cloudwatch-agent.service /etc/systemd/system/
-    sudo systemctl enable amazon-cloudwatch-agent.service
+echo 'cloud watch downloaded successfully'
+chmod +x ./amazon-cloudwatch-agent.deb
+sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
+sudo cp amazon-cloudwatch-agent.service /etc/systemd/system/
+
+echo 'Listing all services'
+systemctl list-unit-files --type=service
+
+echo 'Enabling cloudwatch service'
+sudo systemctl enable amazon-cloudwatch-agent.service
+
+echo 'Starting cloudwatch service'
+sudo systemctl start amazon-cloudwatch-agent.service
